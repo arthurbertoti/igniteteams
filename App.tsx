@@ -8,8 +8,8 @@ import {
 
 import theme from "./src/theme"
 
-import { Groups } from "@screens/Groups"
-import { Loading } from "@components/Loading"
+import { Groups } from "@screens/index"
+import { Loading } from "@components/index"
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold })
