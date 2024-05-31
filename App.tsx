@@ -8,8 +8,9 @@ import {
 
 import theme from "./src/theme"
 
-import { Groups } from "@screens/index"
 import { Loading } from "@components/index"
+
+import { Routes } from "@routes/index"
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold })
@@ -20,7 +21,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Groups /> : <Loading />}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </ThemeProvider>
   )
 }
