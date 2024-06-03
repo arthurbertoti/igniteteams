@@ -7,11 +7,11 @@ import { Highlight } from "@components/Highlight"
 import { Button, Header, Input } from "@components/index"
 
 export function NewGroup() {
-  const [newGroup, setNewGroup] = useState("")
+  const [group, setGroup] = useState("")
   const navigation = useNavigation()
 
   function handleNew() {
-    navigation.navigate("players", { group: newGroup })
+    navigation.navigate("players", { group })
   }
   return (
     <Container>
@@ -24,8 +24,8 @@ export function NewGroup() {
         />
         <Input
           placeholder="Nome da turma"
-          onChangeText={setNewGroup}
-          value={newGroup}
+          onChangeText={setGroup}
+          value={group}
         />
         <Button style={{ marginTop: 20 }} title="Criar" onPress={handleNew} />
       </Content>
