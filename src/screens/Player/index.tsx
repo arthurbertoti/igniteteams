@@ -6,6 +6,7 @@ import { AppError } from "@utils/AppError"
 
 import { PlayerStorageDTO } from "@storage/player/playerStorageDTO"
 import { playerAddByGroup } from "@storage/player/playerAddByGroup"
+import { playerRemoveByGroup } from "@storage/player/playersRemoveByGroup"
 import { playerGetByGroupAndTeam } from "@storage/player/playerGetByGroupAndTeam"
 
 import {
@@ -88,6 +89,16 @@ export function Players() {
     }
   }
 
+  async function handlePlayerRemove(playerName: string) {
+    try {
+      await playerRemoveByGroup(playerName, group)
+      await fetchPlayersByTeam()
+    } catch (error) {
+      console.log(error)
+      Alert.alert("Remover pessoas", "Não foi possível remover a pessoa.")
+    }
+  }
+
   useEffect(() => {
     fetchPlayersByTeam()
   }, [group, team])
@@ -130,7 +141,11 @@ export function Players() {
           <PlayerCardContainer>
             <Icon name="person" />
             <Name>{item.name}</Name>
-            <ButtonIcon iconName="close" type="SECONDARY" onPress={() => {}} />
+            <ButtonIcon
+              iconName="close"
+              type="SECONDARY"
+              onPress={() => handlePlayerRemove(item.name)}
+            />
           </PlayerCardContainer>
         )}
         ListEmptyComponent={() => (
