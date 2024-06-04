@@ -11,7 +11,7 @@ export function Header({ showBackIcon = false }: HeaderProps) {
   const navigation = useNavigation()
 
   function handleGoBack() {
-    navigation.goBack()
+    navigation.navigate("groups")
   }
   return (
     <Container>
