@@ -18,6 +18,7 @@ import {
   Highlight,
   Input,
   ListEmpty,
+  Loading,
 } from "@components/index"
 
 import {
@@ -35,6 +36,7 @@ type RouteParams = {
 }
 
 export function Players() {
+  const [isLoading, setIsLoading] = useState(true)
   const [newPlayerName, setNewPlayerName] = useState("")
   const [team, setTeam] = useState("Time A")
   const [players, setPlayers] = useState<PlayerStorageDTO[]>([])
@@ -78,6 +80,7 @@ export function Players() {
 
   async function fetchPlayersByTeam() {
     try {
+      setIsLoading(true)
       const playersByTeam: PlayerStorageDTO[] = await playerGetByGroupAndTeam(
         group,
         team
@@ -89,6 +92,8 @@ export function Players() {
         "Pessoas",
         "Não foi possível carregar as pessoas do time selecionado."
       )
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -155,29 +160,33 @@ export function Players() {
         />
         <NumberOfPlayers>{players.length}</NumberOfPlayers>
       </HeaderList>
-      <FlatList
-        data={players}
-        keyExtractor={(item) => item.name}
-        renderItem={({ item }) => (
-          <PlayerCardContainer>
-            <Icon name="person" />
-            <Name>{item.name}</Name>
-            <ButtonIcon
-              iconName="close"
-              type="SECONDARY"
-              onPress={() => handlePlayerRemove(item.name)}
-            />
-          </PlayerCardContainer>
-        )}
-        ListEmptyComponent={() => (
-          <ListEmpty message="Não há pessoas nesse time" />
-        )}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={[
-          { paddingBottom: 100 },
-          players.length === 0 && { flex: 1 },
-        ]}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <FlatList
+          data={players}
+          keyExtractor={(item) => item.name}
+          renderItem={({ item }) => (
+            <PlayerCardContainer>
+              <Icon name="person" />
+              <Name>{item.name}</Name>
+              <ButtonIcon
+                iconName="close"
+                type="SECONDARY"
+                onPress={() => handlePlayerRemove(item.name)}
+              />
+            </PlayerCardContainer>
+          )}
+          ListEmptyComponent={() => (
+            <ListEmpty message="Não há pessoas nesse time" />
+          )}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={[
+            { paddingBottom: 100 },
+            players.length === 0 && { flex: 1 },
+          ]}
+        />
+      )}
       <Button
         title="Remover turma"
         type="SECONDARY"
