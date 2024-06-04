@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "igniteteams",
-    "slug": "igniteteams",
+    "slug": "ignite-teams",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,6 +28,12 @@
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "aafbcde3-95f3-4e22-a976-4390cc5a6edc"
+      }
+    },
+    "owner": "ruhtrabertoti"
   }
 }
